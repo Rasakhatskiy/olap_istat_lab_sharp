@@ -44,7 +44,10 @@
             this.tabPage_policeman = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button_update = new System.Windows.Forms.Button();
+            this.button_vault = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dataGridView_vault = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView_slices = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -65,13 +68,11 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dataGridView_vault = new System.Windows.Forms.DataGridView();
-            this.button_vault = new System.Windows.Forms.Button();
-            this.button_update = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_vault)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_slices)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -80,7 +81,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_vault)).BeginInit();
             this.SuspendLayout();
             // 
             // button_save_to_db
@@ -216,6 +216,26 @@
             this.tabPage1.Text = "View/Edit";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button_update
+            // 
+            this.button_update.Location = new System.Drawing.Point(87, 6);
+            this.button_update.Name = "button_update";
+            this.button_update.Size = new System.Drawing.Size(75, 23);
+            this.button_update.TabIndex = 4;
+            this.button_update.Text = "Update";
+            this.button_update.UseVisualStyleBackColor = true;
+            this.button_update.Click += new System.EventHandler(this.button_update_Click);
+            // 
+            // button_vault
+            // 
+            this.button_vault.Location = new System.Drawing.Point(168, 6);
+            this.button_vault.Name = "button_vault";
+            this.button_vault.Size = new System.Drawing.Size(75, 23);
+            this.button_vault.TabIndex = 3;
+            this.button_vault.Text = "Vault";
+            this.button_vault.UseVisualStyleBackColor = true;
+            this.button_vault.Click += new System.EventHandler(this.button_vault_Click);
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.dataGridView_vault);
@@ -226,6 +246,17 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Vault";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView_vault
+            // 
+            this.dataGridView_vault.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView_vault.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_vault.Location = new System.Drawing.Point(0, 32);
+            this.dataGridView_vault.Name = "dataGridView_vault";
+            this.dataGridView_vault.Size = new System.Drawing.Size(1054, 553);
+            this.dataGridView_vault.TabIndex = 1;
             // 
             // tabPage3
             // 
@@ -352,7 +383,7 @@
             this.radioButton_chart_6.AutoSize = true;
             this.radioButton_chart_6.Location = new System.Drawing.Point(312, 65);
             this.radioButton_chart_6.Name = "radioButton_chart_6";
-            this.radioButton_chart_6.Size = new System.Drawing.Size(85, 17);
+            this.radioButton_chart_6.Size = new System.Drawing.Size(117, 17);
             this.radioButton_chart_6.TabIndex = 5;
             this.radioButton_chart_6.TabStop = true;
             this.radioButton_chart_6.Text = "Кількість злочинів";
@@ -363,7 +394,7 @@
             this.radioButton_chart_5.AutoSize = true;
             this.radioButton_chart_5.Location = new System.Drawing.Point(312, 42);
             this.radioButton_chart_5.Name = "radioButton_chart_5";
-            this.radioButton_chart_5.Size = new System.Drawing.Size(85, 17);
+            this.radioButton_chart_5.Size = new System.Drawing.Size(205, 17);
             this.radioButton_chart_5.TabIndex = 4;
             this.radioButton_chart_5.TabStop = true;
             this.radioButton_chart_5.Text = "Нерозкриті справи за детективами";
@@ -375,7 +406,7 @@
             this.radioButton_chart_4.AutoSize = true;
             this.radioButton_chart_4.Location = new System.Drawing.Point(312, 19);
             this.radioButton_chart_4.Name = "radioButton_chart_4";
-            this.radioButton_chart_4.Size = new System.Drawing.Size(85, 17);
+            this.radioButton_chart_4.Size = new System.Drawing.Size(192, 17);
             this.radioButton_chart_4.TabIndex = 3;
             this.radioButton_chart_4.TabStop = true;
             this.radioButton_chart_4.Text = "Розкриті справи за детективами";
@@ -387,7 +418,7 @@
             this.radioButton_chart_3.AutoSize = true;
             this.radioButton_chart_3.Location = new System.Drawing.Point(6, 65);
             this.radioButton_chart_3.Name = "radioButton_chart_3";
-            this.radioButton_chart_3.Size = new System.Drawing.Size(85, 17);
+            this.radioButton_chart_3.Size = new System.Drawing.Size(115, 17);
             this.radioButton_chart_3.TabIndex = 2;
             this.radioButton_chart_3.TabStop = true;
             this.radioButton_chart_3.Text = "Злочинці за віком";
@@ -475,36 +506,6 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // dataGridView_vault
-            // 
-            this.dataGridView_vault.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView_vault.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_vault.Location = new System.Drawing.Point(0, 32);
-            this.dataGridView_vault.Name = "dataGridView_vault";
-            this.dataGridView_vault.Size = new System.Drawing.Size(1054, 553);
-            this.dataGridView_vault.TabIndex = 1;
-            // 
-            // button_vault
-            // 
-            this.button_vault.Location = new System.Drawing.Point(168, 6);
-            this.button_vault.Name = "button_vault";
-            this.button_vault.Size = new System.Drawing.Size(75, 23);
-            this.button_vault.TabIndex = 3;
-            this.button_vault.Text = "Vault";
-            this.button_vault.UseVisualStyleBackColor = true;
-            // 
-            // button_update
-            // 
-            this.button_update.Location = new System.Drawing.Point(87, 6);
-            this.button_update.Name = "button_update";
-            this.button_update.Size = new System.Drawing.Size(75, 23);
-            this.button_update.TabIndex = 4;
-            this.button_update.Text = "Update";
-            this.button_update.UseVisualStyleBackColor = true;
-            this.button_update.Click += new System.EventHandler(this.button_update_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -517,6 +518,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_vault)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_slices)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -527,7 +529,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_vault)).EndInit();
             this.ResumeLayout(false);
 
         }

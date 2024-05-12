@@ -34,46 +34,64 @@ namespace olap_c_sharp
 
         private void LoadDataGrids()
         {
-            // create a tatagrid inside each tab page and bind it to a table which name is the same as the tab page Text
             for (int i = 0; i < tabControl.TabPages.Count; i++)
             {
                 var tab = tabControl.TabPages[i];
 
-                // Create a data adapter
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter("SELECT * FROM " + tab.Text, connection);
 
-                // Create a command builder
                 NpgsqlCommandBuilder cb = new NpgsqlCommandBuilder(da);
 
-                // Create a DataTable
                 DataTable dt = new DataTable();
 
-                // Fill the DataTable
                 da.Fill(dt);
 
-                // Create a DataGridView
                 DataGridView dg = new DataGridView();
                 dg.Dock = DockStyle.Fill;
                 dg.DataSource = dt;
 
-                // Bind the DataTable to the DataGridView
                 tab.Controls.Add(dg);
+
+                if (tab.Text == "crime_case")
+                {
+                    DateTimePicker dtp1 = new DateTimePicker();
+                    dtp1.Format = DateTimePickerFormat.Custom;
+                    dtp1.CustomFormat = "yyyy-MM-dd";
+                    dtp1.Value = DateTime.Now;
+                    dtp1.Dock = DockStyle.Top;
+
+                    DateTimePicker dtp2 = new DateTimePicker();
+                    dtp2.Format = DateTimePickerFormat.Custom;
+                    dtp2.CustomFormat = "yyyy-MM-dd";
+                    dtp2.Value = DateTime.Now;
+                    dtp2.Dock = DockStyle.Top;
+
+                    var btn = new System.Windows.Forms.Button();
+                    btn.Text = "Filter";
+                    btn.Dock = DockStyle.Top;
+
+                    btn.Click += (sender, e) =>
+                    {
+                        string query = "SELECT * FROM " + tab.Text + " WHERE date BETWEEN '" + dtp1.Value.ToString("yyyy-MM-dd") + "' AND '" + dtp2.Value.ToString("yyyy-MM-dd") + "'";
+                        da = new NpgsqlDataAdapter(query, connection);
+                        cb = new NpgsqlCommandBuilder(da);
+                        dt = new DataTable();
+                        da.Fill(dt);
+                        dg.DataSource = dt;
+                    };
+
+                    tab.Controls.Add(btn);
+                    tab.Controls.Add(dtp2);
+                    tab.Controls.Add(dtp1);
+                }
+               
 
             }
             {
-                // Create a data adapter
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter("SELECT * FROM " + "vault", connection);
-
-                // Create a command builder
                 NpgsqlCommandBuilder cb = new NpgsqlCommandBuilder(da);
-
-                // Create a DataTable
                 DataTable dt = new DataTable();
-
-                // Fill the DataTable
                 da.Fill(dt);
-
-                // Create a DataGridView
                 dataGridView_vault.DataSource = dt;
             }
         }
@@ -83,7 +101,6 @@ namespace olap_c_sharp
             for (int i = 0; i < tabControl.TabPages.Count; i++)
             {
                 var tab = tabControl.TabPages[i];
-                // delete all controls from tab page
                 tab.Controls.Clear();
             }
             LoadDataGrids();
@@ -349,5 +366,6 @@ namespace olap_c_sharp
         {
             UpdateDataGrids();  
         }
+
     }
 }
