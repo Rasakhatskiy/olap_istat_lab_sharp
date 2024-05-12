@@ -29,9 +29,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button_save_to_db = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage_crime_case = new System.Windows.Forms.TabPage();
@@ -45,7 +45,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button_vault = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView_slices = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -66,6 +65,9 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.dataGridView_vault = new System.Windows.Forms.DataGridView();
+            this.button_vault = new System.Windows.Forms.Button();
+            this.button_update = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -78,6 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_vault)).BeginInit();
             this.SuspendLayout();
             // 
             // button_save_to_db
@@ -201,6 +204,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button_update);
+            this.tabPage1.Controls.Add(this.button_vault);
             this.tabPage1.Controls.Add(this.tabControl);
             this.tabPage1.Controls.Add(this.button_save_to_db);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -213,7 +218,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button_vault);
+            this.tabPage2.Controls.Add(this.dataGridView_vault);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -221,16 +226,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Vault";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // button_vault
-            // 
-            this.button_vault.Location = new System.Drawing.Point(6, 6);
-            this.button_vault.Name = "button_vault";
-            this.button_vault.Size = new System.Drawing.Size(75, 23);
-            this.button_vault.TabIndex = 0;
-            this.button_vault.Text = "Save";
-            this.button_vault.UseVisualStyleBackColor = true;
-            this.button_vault.Click += new System.EventHandler(this.button_vault_Click);
             // 
             // tabPage3
             // 
@@ -360,7 +355,7 @@
             this.radioButton_chart_6.Size = new System.Drawing.Size(85, 17);
             this.radioButton_chart_6.TabIndex = 5;
             this.radioButton_chart_6.TabStop = true;
-            this.radioButton_chart_6.Text = "radioButton9";
+            this.radioButton_chart_6.Text = "Кількість злочинів";
             this.radioButton_chart_6.CheckedChanged += new System.EventHandler(this.radioButton_chart_CheckedChanged);
             // 
             // radioButton_chart_5
@@ -371,7 +366,7 @@
             this.radioButton_chart_5.Size = new System.Drawing.Size(85, 17);
             this.radioButton_chart_5.TabIndex = 4;
             this.radioButton_chart_5.TabStop = true;
-            this.radioButton_chart_5.Text = "radioButton8";
+            this.radioButton_chart_5.Text = "Нерозкриті справи за детективами";
             this.radioButton_chart_5.UseVisualStyleBackColor = true;
             this.radioButton_chart_5.CheckedChanged += new System.EventHandler(this.radioButton_chart_CheckedChanged);
             // 
@@ -383,7 +378,7 @@
             this.radioButton_chart_4.Size = new System.Drawing.Size(85, 17);
             this.radioButton_chart_4.TabIndex = 3;
             this.radioButton_chart_4.TabStop = true;
-            this.radioButton_chart_4.Text = "radioButton7";
+            this.radioButton_chart_4.Text = "Розкриті справи за детективами";
             this.radioButton_chart_4.UseVisualStyleBackColor = true;
             this.radioButton_chart_4.CheckedChanged += new System.EventHandler(this.radioButton_chart_CheckedChanged);
             // 
@@ -395,7 +390,7 @@
             this.radioButton_chart_3.Size = new System.Drawing.Size(85, 17);
             this.radioButton_chart_3.TabIndex = 2;
             this.radioButton_chart_3.TabStop = true;
-            this.radioButton_chart_3.Text = "radioButton6";
+            this.radioButton_chart_3.Text = "Злочинці за віком";
             this.radioButton_chart_3.UseVisualStyleBackColor = true;
             this.radioButton_chart_3.CheckedChanged += new System.EventHandler(this.radioButton_chart_CheckedChanged);
             // 
@@ -404,7 +399,7 @@
             this.radioButton_chart_2.AutoSize = true;
             this.radioButton_chart_2.Location = new System.Drawing.Point(6, 42);
             this.radioButton_chart_2.Name = "radioButton_chart_2";
-            this.radioButton_chart_2.Size = new System.Drawing.Size(85, 17);
+            this.radioButton_chart_2.Size = new System.Drawing.Size(182, 17);
             this.radioButton_chart_2.TabIndex = 1;
             this.radioButton_chart_2.TabStop = true;
             this.radioButton_chart_2.Text = "Кількість злочинів за важкістю";
@@ -416,7 +411,7 @@
             this.radioButton_chart_1.AutoSize = true;
             this.radioButton_chart_1.Location = new System.Drawing.Point(6, 19);
             this.radioButton_chart_1.Name = "radioButton_chart_1";
-            this.radioButton_chart_1.Size = new System.Drawing.Size(85, 17);
+            this.radioButton_chart_1.Size = new System.Drawing.Size(214, 17);
             this.radioButton_chart_1.TabIndex = 0;
             this.radioButton_chart_1.TabStop = true;
             this.radioButton_chart_1.Text = "Кількість злочинів за тиждень в 2023";
@@ -428,16 +423,16 @@
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(3, 101);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(1048, 481);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -480,6 +475,36 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // dataGridView_vault
+            // 
+            this.dataGridView_vault.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView_vault.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_vault.Location = new System.Drawing.Point(0, 32);
+            this.dataGridView_vault.Name = "dataGridView_vault";
+            this.dataGridView_vault.Size = new System.Drawing.Size(1054, 553);
+            this.dataGridView_vault.TabIndex = 1;
+            // 
+            // button_vault
+            // 
+            this.button_vault.Location = new System.Drawing.Point(168, 6);
+            this.button_vault.Name = "button_vault";
+            this.button_vault.Size = new System.Drawing.Size(75, 23);
+            this.button_vault.TabIndex = 3;
+            this.button_vault.Text = "Vault";
+            this.button_vault.UseVisualStyleBackColor = true;
+            // 
+            // button_update
+            // 
+            this.button_update.Location = new System.Drawing.Point(87, 6);
+            this.button_update.Name = "button_update";
+            this.button_update.Size = new System.Drawing.Size(75, 23);
+            this.button_update.TabIndex = 4;
+            this.button_update.Text = "Update";
+            this.button_update.UseVisualStyleBackColor = true;
+            this.button_update.Click += new System.EventHandler(this.button_update_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -502,6 +527,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_vault)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -523,7 +549,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.Button button_vault;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
@@ -541,5 +566,8 @@
         private System.Windows.Forms.RadioButton radioButton_chart_2;
         private System.Windows.Forms.RadioButton radioButton_chart_1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataGridView dataGridView_vault;
+        private System.Windows.Forms.Button button_update;
+        private System.Windows.Forms.Button button_vault;
     }
 }

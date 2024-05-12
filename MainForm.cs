@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace olap_c_sharp
 {
@@ -59,6 +60,33 @@ namespace olap_c_sharp
                 tab.Controls.Add(dg);
 
             }
+            {
+                // Create a data adapter
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter("SELECT * FROM " + "vault", connection);
+
+                // Create a command builder
+                NpgsqlCommandBuilder cb = new NpgsqlCommandBuilder(da);
+
+                // Create a DataTable
+                DataTable dt = new DataTable();
+
+                // Fill the DataTable
+                da.Fill(dt);
+
+                // Create a DataGridView
+                dataGridView_vault.DataSource = dt;
+            }
+        }
+
+        private void UpdateDataGrids()
+        {
+            for (int i = 0; i < tabControl.TabPages.Count; i++)
+            {
+                var tab = tabControl.TabPages[i];
+                // delete all controls from tab page
+                tab.Controls.Clear();
+            }
+            LoadDataGrids();
         }
 
         private void SetPersionalInfo()
@@ -92,9 +120,14 @@ namespace olap_c_sharp
                 NpgsqlCommandBuilder cb = new NpgsqlCommandBuilder(da);
                 da.Update((DataTable)dg.DataSource);
             }
+            {
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter("SELECT * FROM " + "vault", connection);
+                NpgsqlCommandBuilder cb = new NpgsqlCommandBuilder(da);
+                da.Update((DataTable)dataGridView_vault.DataSource);
+            }
         }
 
-        private void button_vault_Click(object sender, EventArgs e)
+        private void button_vault_Click_old(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
@@ -128,6 +161,17 @@ namespace olap_c_sharp
             }
         }
 
+        private void button_vault_Click(object sender, EventArgs e)
+        {
+            using (NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM get_vault_table()", connection))
+            using (NpgsqlDataReader reader = command.ExecuteReader());
+
+            using (NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM delete_moved_cases()", connection))
+            using (NpgsqlDataReader reader = command.ExecuteReader()) ;
+
+            UpdateDataGrids();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string storedFuncName = "";
@@ -149,7 +193,7 @@ namespace olap_c_sharp
         }
 
         Point? prevPosition = null;
-        ToolTip tooltip = new ToolTip();
+        System.Windows.Forms.ToolTip tooltip = new System.Windows.Forms.ToolTip();
 
         void chart1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -187,7 +231,6 @@ namespace olap_c_sharp
             chart1.Visible = true;
             if (radioButton_chart_1.Checked)
             {
-                
                 using (NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM get_crimes_per_week()", connection))
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
@@ -199,6 +242,7 @@ namespace olap_c_sharp
                     chart1.Series["Series1"].XValueMember = "crime_week";
                     chart1.Series["Series1"].YValueMembers = "total_cases";
                     chart1.Series["Series1"].LegendText = "Crimes per week";
+                    chart1.Series["Series1"].IsValueShownAsLabel = false;
                     chart1.DataSource = reader;
                     chart1.DataBind();
                     SetupChart();
@@ -206,7 +250,6 @@ namespace olap_c_sharp
             }
             if(radioButton_chart_2.Checked)
             {
-                // create a chart column diagram using stored function get_crimes_per_severity() which returns crime_severity and total_cases for each crime sevcerity
                 using (NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM get_crimes_per_severity()", connection))
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
@@ -218,11 +261,93 @@ namespace olap_c_sharp
                     chart1.Series["Series1"].XValueMember = "crime_severity";
                     chart1.Series["Series1"].YValueMembers = "total_cases";
                     chart1.Series["Series1"].LegendText = "Crimes per severity";
+                    chart1.Series["Series1"].IsValueShownAsLabel = true;
                     chart1.DataSource = reader;
                     chart1.DataBind();
                     SetupChart();
                 }
             }
+            if  (radioButton_chart_3.Checked)
+            {
+                using (NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM get_criminals_by_age_category()", connection))
+                using (NpgsqlDataReader reader = command.ExecuteReader())
+                {
+                    chart1.Series.Clear();
+                    chart1.ChartAreas.Clear();
+                    chart1.ChartAreas.Add(new ChartArea("ChartArea1"));
+                    chart1.Series.Add(new Series("Series1"));
+                    chart1.Series["Series1"].ChartType = SeriesChartType.Column;
+                    chart1.Series["Series1"].XValueMember = "age_category";
+                    chart1.Series["Series1"].YValueMembers = "number_of_criminals";
+                    chart1.Series["Series1"].LegendText = "Crimes per severity";
+                    chart1.Series["Series1"].IsValueShownAsLabel = true;
+                    chart1.DataSource = reader;
+                    chart1.DataBind();
+                    SetupChart();
+                }
+            }
+            if (radioButton_chart_4.Checked)
+            {
+                using (NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM get_detective_solved_cases()", connection))
+                using (NpgsqlDataReader reader = command.ExecuteReader())
+                {
+                    chart1.Series.Clear();
+                    chart1.ChartAreas.Clear();
+                    chart1.ChartAreas.Add(new ChartArea("ChartArea1"));
+                    chart1.Series.Add(new Series("Series1"));
+                    chart1.Series["Series1"].ChartType = SeriesChartType.Pie;
+                    chart1.Series["Series1"].XValueMember = "detective_name";
+                    chart1.Series["Series1"].YValueMembers = "solved_cases";
+                    chart1.Series["Series1"].IsValueShownAsLabel = true;
+                    chart1.DataSource = reader;
+                    chart1.DataBind();
+                    SetupChart();
+                }
+            }
+            if (radioButton_chart_5.Checked)
+            {
+                using (NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM get_detective_solved_cases()", connection))
+                using (NpgsqlDataReader reader = command.ExecuteReader())
+                {
+                    chart1.Series.Clear();
+                    chart1.ChartAreas.Clear();
+                    chart1.ChartAreas.Add(new ChartArea("ChartArea1"));
+                    chart1.Series.Add(new Series("Series1"));
+                    chart1.Series["Series1"].ChartType = SeriesChartType.Pie;
+                    chart1.Series["Series1"].XValueMember = "detective_name";
+                    chart1.Series["Series1"].YValueMembers = "unsolved_cases";
+                    chart1.Series["Series1"].IsValueShownAsLabel = true;
+                    chart1.DataSource = reader;
+                    chart1.DataBind();
+                    SetupChart();
+                }
+            }
+            if (radioButton_chart_6.Checked)
+            {
+                using (NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM get_crime_counts()", connection))
+                using (NpgsqlDataReader reader = command.ExecuteReader())
+                {
+                    chart1.Series.Clear();
+                    chart1.ChartAreas.Clear();
+                    chart1.ChartAreas.Add(new ChartArea("ChartArea1"));
+                    chart1.Series.Add(new Series("Series1"));
+                    chart1.Series["Series1"].ChartType = SeriesChartType.Pie;
+                    chart1.Series["Series1"].XValueMember = "crime_name";
+                    chart1.Series["Series1"].YValueMembers = "total_cases";
+                    chart1.Series["Series1"].IsValueShownAsLabel = true;
+
+                    chart1.Series["Series1"].ToolTip = "#VALX: #VALY";
+
+                    chart1.DataSource = reader;
+                    chart1.DataBind();
+                    SetupChart();
+                }
+            }
+        }
+
+        private void button_update_Click(object sender, EventArgs e)
+        {
+            UpdateDataGrids();  
         }
     }
 }
